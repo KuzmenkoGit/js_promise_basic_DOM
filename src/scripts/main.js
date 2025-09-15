@@ -18,24 +18,46 @@ const promise2 = new Promise((resolve, reject) => {
   }, 3000);
 });
 
-promise1.then((messageText) => {
-  const messageDiv = document.createElement('div');
+promise1
+  .then((messageText) => {
+    const messageDiv = document.createElement('div');
 
-  messageDiv.classList.add('message');
-  messageDiv.textContent = messageText;
+    messageDiv.classList.add('message');
+    messageDiv.textContent = messageText;
 
-  if (body) {
-    body.append(messageDiv);
-  }
-});
+    if (body) {
+      body.append(messageDiv);
+    }
+  })
+  .catch(() => {
+    const messageDiv = document.createElement('div');
 
-promise2.catch((error) => {
-  const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', 'error-message');
+    messageDiv.textContent = 'Promise was rejected!';
 
-  messageDiv.classList.add('message', 'error-message');
-  messageDiv.textContent = error.message;
+    if (body) {
+      body.append(messageDiv);
+    }
+  });
 
-  if (body) {
-    body.append(messageDiv);
-  }
-});
+promise2
+  .then((messageText) => {
+    const messageDiv = document.createElement('div');
+
+    messageDiv.classList.add('message');
+    messageDiv.textContent = 'Promise was resolved!';
+
+    if (body) {
+      body.append(messageDiv);
+    }
+  })
+  .catch((error) => {
+    const messageDiv = document.createElement('div');
+
+    messageDiv.classList.add('message', 'error-message');
+    messageDiv.textContent = error.message;
+
+    if (body) {
+      body.append(messageDiv);
+    }
+  });
